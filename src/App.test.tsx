@@ -25,4 +25,9 @@ describe('App', () => {
       screen.getByRole('link', { name: 'Sponsor on GitHub' }),
     ).toHaveAttribute('href', 'https://github.com/sponsors/ysknsid25');
   });
+
+  it('shows a copyright notice', () => {
+    render(<App />);
+    expect(screen.getByText(/©\s*2026/)).toBeInTheDocument();
+  });
 });

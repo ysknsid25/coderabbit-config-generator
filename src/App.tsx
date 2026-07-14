@@ -84,6 +84,20 @@ export function App() {
           </div>
         </aside>
       </div>
+
+      <footer className="border-t border-stone-200 px-6 py-6 text-center text-xs text-stone-400">
+        © 2026
+        {' '}
+        <a
+          href="https://github.com/ysknsid25"
+          target="_blank"
+          rel="noreferrer"
+          className="hover:text-stone-600"
+        >
+          ysknsid25
+        </a>
+        . Not affiliated with CodeRabbit.
+      </footer>
     </div>
   );
 }
