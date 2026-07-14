@@ -12,4 +12,17 @@ describe('App', () => {
       expect(screen.getByText(section)).toBeInTheDocument();
     }
   });
+
+  it('links to the repository and sponsor pages', () => {
+    render(<App />);
+    expect(
+      screen.getByRole('link', { name: 'GitHub repository' }),
+    ).toHaveAttribute(
+      'href',
+      'https://github.com/ysknsid25/coderabbit-config-generator',
+    );
+    expect(
+      screen.getByRole('link', { name: 'Sponsor on GitHub' }),
+    ).toHaveAttribute('href', 'https://github.com/sponsors/ysknsid25');
+  });
 });

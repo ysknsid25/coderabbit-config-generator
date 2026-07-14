@@ -4,7 +4,11 @@ import type { AnyForm } from './form/formisch';
 import { useChangeSignal } from './form/useChangeSignal';
 import { useConfigForm } from './form/useConfigForm';
 import { rootMeta } from './schema';
+import { GithubIcon, HeartIcon } from './ui/icons';
 import { YamlPreview } from './ui/YamlPreview';
+
+const REPO_URL = 'https://github.com/ysknsid25/coderabbit-config-generator';
+const SPONSOR_URL = 'https://github.com/sponsors/ysknsid25';
 
 export function App() {
   const form = useConfigForm() as AnyForm;
@@ -20,6 +24,26 @@ export function App() {
           <h1 className="text-lg font-semibold text-stone-900">
             CodeRabbit Config Generator
           </h1>
+          <div className="ml-auto flex items-center gap-4">
+            <a
+              href={REPO_URL}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="GitHub repository"
+              className="text-stone-500 transition-colors hover:text-stone-900"
+            >
+              <GithubIcon className="h-5 w-5" />
+            </a>
+            <a
+              href={SPONSOR_URL}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Sponsor on GitHub"
+              className="text-stone-400 transition-colors hover:text-pink-500"
+            >
+              <HeartIcon className="h-5 w-5" />
+            </a>
+          </div>
         </div>
       </header>
 
