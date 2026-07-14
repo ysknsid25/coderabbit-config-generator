@@ -1,4 +1,5 @@
 import { stringify } from 'yaml';
+import { buildZip } from './zip';
 
 // Modeline understood by the "YAML Language Support by Red Hat" VS Code
 // extension; it points the editor at the CodeRabbit schema for validation.
@@ -22,52 +23,22 @@ export function toYaml(config: unknown): string {
   return stringify(config, { indent: 2, lineWidth: 0 });
 }
 
-interface SaveFilePicker {
-  showSaveFilePicker?: (options: {
-    suggestedName?: string;
-    types?: { description?: string; accept: Record<string, string[]> }[];
-  }) => Promise<{
-    createWritable: () => Promise<{
-      write: (data: string) => Promise<void>;
-      close: () => Promise<void>;
-    }>;
-  }>;
-}
-
-function anchorDownload(text: string, filename: string) {
-  const blob = new Blob([text], { type: 'text/yaml;charset=utf-8' });
+// Browsers strip the leading dot from download filenames (both <a download>
+// and the File System Access picker sanitize suggested names), so a dotfile
+// cannot be saved directly. Ship a ZIP whose entry keeps the exact name.
+export function downloadYaml(
+  text: string,
+  entryName = '.coderabbit.yaml',
+  zipName = 'coderabbit-config.zip',
+) {
+  const bytes = buildZip(entryName, text);
+  const blob = new Blob([bytes as BlobPart], { type: 'application/zip' });
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;
-  link.download = filename;
+  link.download = zipName;
   document.body.appendChild(link);
   link.click();
   link.remove();
   URL.revokeObjectURL(url);
-}
-
-// Chromium strips the leading dot from an <a download> filename, turning
-// `.coderabbit.yaml` into `coderabbit.yaml`. The File System Access API keeps
-// dotfile names, so prefer it and fall back to the anchor elsewhere.
-export async function downloadYaml(text: string, filename = '.coderabbit.yaml') {
-  const picker = window as unknown as SaveFilePicker;
-  if (typeof picker.showSaveFilePicker === 'function') {
-    try {
-      const handle = await picker.showSaveFilePicker({
-        suggestedName: filename,
-        types: [
-          { description: 'YAML', accept: { 'application/yaml': ['.yaml', '.yml'] } },
-        ],
-      });
-      const writable = await handle.createWritable();
-      await writable.write(text);
-      await writable.close();
-      return;
-    }
-    catch (error) {
-      if (error instanceof DOMException && error.name === 'AbortError') return;
-      // Any other failure falls back to the anchor download.
-    }
-  }
-  anchorDownload(text, filename);
 }

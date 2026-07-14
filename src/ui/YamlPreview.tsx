@@ -47,8 +47,9 @@ export function YamlPreview({ form, signal }: Props) {
           </button>
           <button
             type="button"
-            onClick={() => void downloadYaml(output)}
+            onClick={() => downloadYaml(output)}
             disabled={isEmpty}
+            title="Downloads coderabbit-config.zip containing .coderabbit.yaml — browsers cannot save dotfiles directly"
             className="rounded-md bg-brand-600 px-2.5 py-1 text-xs font-medium text-white hover:bg-brand-700 disabled:opacity-50"
           >
             Download

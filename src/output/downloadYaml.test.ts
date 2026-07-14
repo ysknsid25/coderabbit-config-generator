@@ -7,24 +7,9 @@ afterEach(() => {
 });
 
 describe('downloadYaml', () => {
-  it('saves via the File System Access API with the dotfile name', async () => {
-    const write = vi.fn().mockResolvedValue(undefined);
-    const close = vi.fn().mockResolvedValue(undefined);
-    const createWritable = vi.fn().mockResolvedValue({ write, close });
-    const showSaveFilePicker = vi.fn().mockResolvedValue({ createWritable });
-    vi.stubGlobal('showSaveFilePicker', showSaveFilePicker);
-
-    await downloadYaml('early_access: true\n');
-
-    expect(showSaveFilePicker).toHaveBeenCalledWith(
-      expect.objectContaining({ suggestedName: '.coderabbit.yaml' }),
-    );
-    expect(write).toHaveBeenCalledWith('early_access: true\n');
-    expect(close).toHaveBeenCalled();
-  });
-
-  it('falls back to an anchor that keeps the leading dot', async () => {
+  it('downloads a zip archive via an anchor click', () => {
     const anchors: HTMLAnchorElement[] = [];
+    let blob: Blob | undefined;
     const realCreate = document.createElement.bind(document);
     vi.spyOn(document, 'createElement').mockImplementation((tag: string) => {
       const el = realCreate(tag);
@@ -35,14 +20,18 @@ describe('downloadYaml', () => {
       return el;
     });
     vi.stubGlobal('URL', {
-      createObjectURL: () => 'blob:x',
+      createObjectURL: (b: Blob) => {
+        blob = b;
+        return 'blob:x';
+      },
       revokeObjectURL: () => {},
     });
 
-    await downloadYaml('early_access: true\n');
+    downloadYaml('early_access: true\n');
 
     expect(anchors).toHaveLength(1);
-    expect(anchors[0].download).toBe('.coderabbit.yaml');
+    expect(anchors[0].download).toBe('coderabbit-config.zip');
     expect(anchors[0].click).toHaveBeenCalled();
+    expect(blob?.type).toBe('application/zip');
   });
 });
