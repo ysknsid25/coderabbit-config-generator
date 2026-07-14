@@ -1,0 +1,21 @@
+export const inputClass
+  = 'w-full rounded-md border border-stone-300 bg-white px-3 py-1.5 text-sm '
+    + 'shadow-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500';
+
+export const chipButtonClass
+  = 'rounded-md border px-3 py-1 text-sm transition-colors';
+
+export const chipSelectedClass
+  = 'border-brand-600 bg-brand-600 text-white';
+
+export const chipIdleClass
+  = 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50';
+
+export const addButtonClass
+  = 'rounded-md border border-dashed border-stone-300 px-3 py-1.5 text-sm '
+    + 'text-stone-600 hover:border-brand-400 hover:text-brand-600 '
+    + 'disabled:cursor-not-allowed disabled:opacity-50';
+
+export const removeButtonClass
+  = 'shrink-0 rounded-md border border-stone-200 px-2 text-stone-400 '
+    + 'hover:border-red-300 hover:text-red-600';

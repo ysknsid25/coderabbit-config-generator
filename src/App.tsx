@@ -1,0 +1,65 @@
+import { Accordion } from './form/fields/Accordion';
+import { FieldRenderer } from './form/FieldRenderer';
+import type { AnyForm } from './form/formisch';
+import { useChangeSignal } from './form/useChangeSignal';
+import { useConfigForm } from './form/useConfigForm';
+import { rootMeta } from './schema';
+import { YamlPreview } from './ui/YamlPreview';
+
+export function App() {
+  const form = useConfigForm() as AnyForm;
+  const signal = useChangeSignal();
+  const scalars = rootMeta.filter(m => m.kind !== 'group');
+  const groups = rootMeta.filter(m => m.kind === 'group');
+
+  return (
+    <div className="min-h-screen bg-stone-50 text-stone-800">
+      <header className="border-b border-stone-200 bg-white">
+        <div className="mx-auto flex max-w-6xl items-center gap-2 px-6 py-4">
+          <span className="h-5 w-1.5 rounded-full bg-brand-500" />
+          <h1 className="text-lg font-semibold text-stone-900">
+            CodeRabbit Config Generator
+          </h1>
+        </div>
+      </header>
+
+      <div className="mx-auto grid max-w-6xl gap-6 p-6 lg:grid-cols-[1fr_420px]">
+        <main
+          className="space-y-2"
+          onInput={signal.emit}
+          onClick={signal.emit}
+        >
+          <Accordion title="General" defaultOpen>
+            <div className="divide-y divide-stone-100">
+              {scalars.map(meta => (
+                <FieldRenderer
+                  key={meta.key}
+                  form={form}
+                  meta={meta}
+                  path={meta.path}
+                  depth={1}
+                />
+              ))}
+            </div>
+          </Accordion>
+
+          {groups.map(meta => (
+            <FieldRenderer
+              key={meta.key}
+              form={form}
+              meta={meta}
+              path={meta.path}
+              depth={0}
+            />
+          ))}
+        </main>
+
+        <aside>
+          <div className="h-[28rem] lg:sticky lg:top-6 lg:h-[calc(100vh-3rem)]">
+            <YamlPreview form={form} signal={signal} />
+          </div>
+        </aside>
+      </div>
+    </div>
+  );
+}

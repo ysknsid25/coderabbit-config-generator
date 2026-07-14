@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans:
+    "Inter", -apple-system, system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+
+  --color-brand-50: #fff4ed;
+  --color-brand-100: #ffe6d5;
+  --color-brand-200: #feccaa;
+  --color-brand-300: #fdac74;
+  --color-brand-400: #fb8a3c;
+  --color-brand-500: #ff570a;
+  --color-brand-600: #e64d00;
+  --color-brand-700: #bf3d05;
+  --color-brand-800: #97320c;
+  --color-brand-900: #7a2c0d;
+}

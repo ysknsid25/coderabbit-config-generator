@@ -1,0 +1,10 @@
+node_modules
+dist
+dist-ssr
+coverage
+*.local
+.DS_Store
+.vite
+.tmp-screenshots
+.claude
+docs
