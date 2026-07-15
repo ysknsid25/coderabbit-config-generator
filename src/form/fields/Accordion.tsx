@@ -20,7 +20,7 @@ export function Accordion({
   return (
     <details
       open={open}
-      className="overflow-hidden rounded-lg border border-stone-200 bg-white"
+      className="overflow-hidden rounded-lg border border-stone-200 bg-white dark:border-stone-800 dark:bg-stone-900"
     >
       <summary
         // Drive open state explicitly so behaviour is deterministic across
@@ -29,14 +29,16 @@ export function Accordion({
           e.preventDefault();
           setOpen(o => !o);
         }}
-        className={`flex cursor-pointer list-none items-center gap-2 px-4 py-3 select-none hover:bg-stone-50 ${
-          depth === 0 ? 'font-semibold text-stone-900' : 'font-medium text-stone-700'
+        className={`flex cursor-pointer list-none items-center gap-2 px-4 py-3 select-none hover:bg-stone-50 dark:hover:bg-stone-800 ${
+          depth === 0
+            ? 'font-semibold text-stone-900 dark:text-stone-100'
+            : 'font-medium text-stone-700 dark:text-stone-300'
         }`}
       >
         <svg
           viewBox="0 0 20 20"
           fill="currentColor"
-          className={`h-4 w-4 shrink-0 text-stone-400 transition-transform ${
+          className={`h-4 w-4 shrink-0 text-stone-400 transition-transform dark:text-stone-500 ${
             open ? 'rotate-90' : ''
           }`}
         >
@@ -48,9 +50,9 @@ export function Accordion({
         </svg>
         <span className="text-sm">{title}</span>
       </summary>
-      <div className="border-t border-stone-100 px-4 py-2">
+      <div className="border-t border-stone-100 px-4 py-2 dark:border-stone-800">
         {description && (
-          <p className="py-2 text-xs leading-relaxed text-stone-500">
+          <p className="py-2 text-xs leading-relaxed text-stone-500 dark:text-stone-400">
             {description}
           </p>
         )}

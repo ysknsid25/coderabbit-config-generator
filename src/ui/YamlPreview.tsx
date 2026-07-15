@@ -31,9 +31,9 @@ export function YamlPreview({ form, signal }: Props) {
   };
 
   return (
-    <div className="flex h-full flex-col overflow-hidden rounded-lg border border-stone-200 bg-white">
-      <div className="flex items-center justify-between border-b border-stone-200 px-4 py-2.5">
-        <span className="font-mono text-xs font-medium text-stone-500">
+    <div className="flex h-full flex-col overflow-hidden rounded-lg border border-stone-200 bg-white dark:border-stone-800 dark:bg-stone-900">
+      <div className="flex items-center justify-between border-b border-stone-200 px-4 py-2.5 dark:border-stone-800">
+        <span className="font-mono text-xs font-medium text-stone-500 dark:text-stone-400">
           .coderabbit.yaml
         </span>
         <div className="flex items-center gap-2">
@@ -41,7 +41,7 @@ export function YamlPreview({ form, signal }: Props) {
             type="button"
             onClick={copy}
             disabled={isEmpty}
-            className="rounded-md border border-stone-300 px-2.5 py-1 text-xs text-stone-700 hover:bg-stone-50 disabled:opacity-50"
+            className="rounded-md border border-stone-300 px-2.5 py-1 text-xs text-stone-700 hover:bg-stone-50 disabled:opacity-50 dark:border-stone-700 dark:text-stone-300 dark:hover:bg-stone-800"
           >
             {copied ? 'Copied' : 'Copy'}
           </button>
@@ -57,7 +57,7 @@ export function YamlPreview({ form, signal }: Props) {
         </div>
       </div>
 
-      <div className="space-y-1.5 border-b border-stone-100 px-4 py-2.5 text-xs text-stone-600">
+      <div className="space-y-1.5 border-b border-stone-100 px-4 py-2.5 text-xs text-stone-600 dark:border-stone-800 dark:text-stone-400">
         <label className="flex items-center gap-2">
           <input
             type="checkbox"
@@ -80,7 +80,7 @@ export function YamlPreview({ form, signal }: Props) {
           <InfoTip label="About YAML Language Support">
             Adds a
             {' '}
-            <code className="font-mono text-[11px] text-stone-800">
+            <code className="font-mono text-[11px] text-stone-800 dark:text-stone-200">
               # yaml-language-server
             </code>
             {' '}
@@ -90,7 +90,7 @@ export function YamlPreview({ form, signal }: Props) {
               href={REDHAT_YAML_EXTENSION}
               target="_blank"
               rel="noreferrer"
-              className="text-brand-600 underline"
+              className="text-brand-600 underline dark:text-brand-400"
             >
               YAML Language Support by Red Hat
             </a>
@@ -101,10 +101,10 @@ export function YamlPreview({ form, signal }: Props) {
         </div>
       </div>
 
-      <pre className="flex-1 overflow-auto p-4 font-mono text-xs leading-relaxed text-stone-800">
+      <pre className="flex-1 overflow-auto p-4 font-mono text-xs leading-relaxed text-stone-800 dark:text-stone-200">
         {showPlaceholder
           ? (
-              <span className="text-stone-400">
+              <span className="text-stone-400 dark:text-stone-500">
                 No overrides yet — change a setting to build your config.
               </span>
             )

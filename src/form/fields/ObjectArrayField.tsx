@@ -31,10 +31,10 @@ export function ObjectArrayField({ form, meta, path }: Props) {
           {store.items.map((id, index) => (
             <div
               key={id}
-              className="rounded-md border border-stone-200 bg-stone-50/50 p-3"
+              className="rounded-md border border-stone-200 bg-stone-50/50 p-3 dark:border-stone-800 dark:bg-stone-800/50"
             >
               <div className="mb-1 flex items-center justify-between">
-                <span className="text-xs font-medium text-stone-400">
+                <span className="text-xs font-medium text-stone-400 dark:text-stone-500">
                   #
                   {index + 1}
                 </span>
@@ -47,7 +47,7 @@ export function ObjectArrayField({ form, meta, path }: Props) {
                   ×
                 </button>
               </div>
-              <div className="divide-y divide-stone-100">
+              <div className="divide-y divide-stone-100 dark:divide-stone-800">
                 {children.map(child => (
                   <FieldRenderer
                     key={child.key}

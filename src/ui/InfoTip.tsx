@@ -15,14 +15,14 @@ export function InfoTip({ label, children }: Props) {
         aria-label={label}
         aria-expanded={open}
         onClick={() => setOpen(o => !o)}
-        className="flex h-4 w-4 items-center justify-center rounded-full border border-stone-300 text-[10px] font-semibold text-stone-500 hover:border-brand-400 hover:text-brand-600"
+        className="flex h-4 w-4 items-center justify-center rounded-full border border-stone-300 text-[10px] font-semibold text-stone-500 hover:border-brand-400 hover:text-brand-600 dark:border-stone-600 dark:text-stone-400 dark:hover:border-brand-400 dark:hover:text-brand-400"
       >
         i
       </button>
       {open && (
         <span
           role="tooltip"
-          className="absolute top-full right-0 z-20 mt-2 w-64 rounded-md border border-stone-200 bg-white p-3 text-xs leading-relaxed font-normal text-stone-600 shadow-lg"
+          className="absolute top-full right-0 z-20 mt-2 w-64 rounded-md border border-stone-200 bg-white p-3 text-xs leading-relaxed font-normal text-stone-600 shadow-lg dark:border-stone-700 dark:bg-stone-800 dark:text-stone-300"
         >
           {children}
         </span>

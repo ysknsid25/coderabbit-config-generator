@@ -27,7 +27,7 @@ export function ObjectGroup({
       depth={depth}
       defaultOpen={defaultOpen}
     >
-      <div className="divide-y divide-stone-100">
+      <div className="divide-y divide-stone-100 dark:divide-stone-800">
         {children.map(child => (
           <FieldRenderer
             key={child.key}

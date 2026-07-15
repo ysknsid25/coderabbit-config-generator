@@ -15,9 +15,9 @@ export function BooleanField({ form, meta, path }: Props) {
         return (
           <div className="flex items-start justify-between gap-4 py-3">
             <div>
-              <p className="text-sm font-medium text-stone-800">{meta.title}</p>
+              <p className="text-sm font-medium text-stone-800 dark:text-stone-200">{meta.title}</p>
               {meta.description && (
-                <p className="mt-0.5 text-xs leading-relaxed text-stone-500">
+                <p className="mt-0.5 text-xs leading-relaxed text-stone-500 dark:text-stone-400">
                   {meta.description}
                 </p>
               )}
@@ -29,7 +29,7 @@ export function BooleanField({ form, meta, path }: Props) {
               aria-label={meta.title}
               onClick={() => field.onChange(!checked)}
               className={`relative mt-0.5 h-5 w-9 shrink-0 rounded-full transition-colors ${
-                checked ? 'bg-brand-600' : 'bg-stone-300'
+                checked ? 'bg-brand-600' : 'bg-stone-300 dark:bg-stone-600'
               }`}
             >
               <span

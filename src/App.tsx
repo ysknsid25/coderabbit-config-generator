@@ -5,6 +5,7 @@ import { useChangeSignal } from './form/useChangeSignal';
 import { useConfigForm } from './form/useConfigForm';
 import { rootMeta } from './schema';
 import { GithubIcon, HeartIcon } from './ui/icons';
+import { ThemeToggle } from './ui/ThemeToggle';
 import { YamlPreview } from './ui/YamlPreview';
 
 const REPO_URL = 'https://github.com/ysknsid25/coderabbit-config-generator';
@@ -17,20 +18,21 @@ export function App() {
   const groups = rootMeta.filter(m => m.kind === 'group');
 
   return (
-    <div className="min-h-screen bg-stone-50 text-stone-800">
-      <header className="border-b border-stone-200 bg-white">
+    <div className="min-h-screen bg-stone-50 text-stone-800 dark:bg-stone-950 dark:text-stone-200">
+      <header className="border-b border-stone-200 bg-white dark:border-stone-800 dark:bg-stone-900">
         <div className="mx-auto flex max-w-6xl items-center gap-2 px-6 py-4">
           <span className="h-5 w-1.5 rounded-full bg-brand-500" />
-          <h1 className="text-lg font-semibold text-stone-900">
+          <h1 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
             CodeRabbit Config Generator
           </h1>
           <div className="ml-auto flex items-center gap-4">
+            <ThemeToggle />
             <a
               href={REPO_URL}
               target="_blank"
               rel="noreferrer"
               aria-label="GitHub repository"
-              className="text-stone-500 transition-colors hover:text-stone-900"
+              className="text-stone-500 transition-colors hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100"
             >
               <GithubIcon className="h-5 w-5" />
             </a>
@@ -54,7 +56,7 @@ export function App() {
           onClick={signal.emit}
         >
           <Accordion title="General" defaultOpen>
-            <div className="divide-y divide-stone-100">
+            <div className="divide-y divide-stone-100 dark:divide-stone-800">
               {scalars.map(meta => (
                 <FieldRenderer
                   key={meta.key}
@@ -85,14 +87,14 @@ export function App() {
         </aside>
       </div>
 
-      <footer className="border-t border-stone-200 px-6 py-6 text-center text-xs text-stone-400">
+      <footer className="border-t border-stone-200 px-6 py-6 text-center text-xs text-stone-400 dark:border-stone-800 dark:text-stone-500">
         © 2026
         {' '}
         <a
           href="https://github.com/ysknsid25"
           target="_blank"
           rel="noreferrer"
-          className="hover:text-stone-600"
+          className="hover:text-stone-600 dark:hover:text-stone-300"
         >
           ysknsid25
         </a>

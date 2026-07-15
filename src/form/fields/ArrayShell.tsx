@@ -15,14 +15,14 @@ export function ArrayShell({ meta, count, onAdd, children }: ArrayShellProps) {
     <div className="py-3">
       <div className="flex items-baseline justify-between gap-4">
         <div>
-          <p className="text-sm font-medium text-stone-800">{meta.title}</p>
+          <p className="text-sm font-medium text-stone-800 dark:text-stone-200">{meta.title}</p>
           {meta.description && (
-            <p className="mt-0.5 text-xs leading-relaxed text-stone-500">
+            <p className="mt-0.5 text-xs leading-relaxed text-stone-500 dark:text-stone-400">
               {meta.description}
             </p>
           )}
         </div>
-        <span className="text-xs text-stone-400">
+        <span className="text-xs text-stone-400 dark:text-stone-500">
           {count}
           {meta.maxItems !== undefined && ` / ${meta.maxItems}`}
         </span>

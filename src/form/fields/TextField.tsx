@@ -47,7 +47,7 @@ export function TextField({ form, meta, path }: Props) {
                   />
                 )}
             {meta.maxLength && (
-              <p className="mt-1 text-right text-[10px] text-stone-400">
+              <p className="mt-1 text-right text-[10px] text-stone-400 dark:text-stone-500">
                 {value.length}
                 /
                 {meta.maxLength}

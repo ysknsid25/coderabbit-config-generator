@@ -11,6 +11,18 @@
             rel="stylesheet"
         />
         <title>CodeRabbit Config Generator - GUI for .coderabbit.yaml</title>
+        <script>
+            // Apply the stored theme before first paint to avoid a flash
+            (function () {
+                var stored = localStorage.getItem("theme");
+                var dark =
+                    stored === "dark" ||
+                    (stored === null &&
+                        window.matchMedia("(prefers-color-scheme: dark)")
+                            .matches);
+                if (dark) document.documentElement.classList.add("dark");
+            })();
+        </script>
         <meta
             name="description"
             content="CodeRabbitのAIコードレビュー設定ファイル(.coderabbit.yaml)をGUIで簡単に生成できる無料のオープンソースWebアプリ。公式JSON Schema由来のフォームで全項目を網羅。A free, open-source GUI config generator for CodeRabbit's .coderabbit.yaml, built live from CodeRabbit's official JSON Schema."
