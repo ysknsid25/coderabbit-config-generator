@@ -47,7 +47,7 @@ export function App() {
         </div>
       </header>
 
-      <div className="mx-auto grid max-w-6xl gap-6 p-6 lg:grid-cols-[1fr_420px]">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 p-6 lg:grid-cols-[minmax(0,1fr)_420px]">
         <main
           className="space-y-2"
           onInput={signal.emit}

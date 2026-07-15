@@ -1,5 +1,5 @@
 export const inputClass
-  = 'w-full rounded-md border border-stone-300 bg-white px-3 py-1.5 text-sm '
+  = 'w-full min-w-0 rounded-md border border-stone-300 bg-white px-3 py-1.5 text-sm '
     + 'shadow-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500';
 
 export const chipButtonClass
