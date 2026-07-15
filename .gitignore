@@ -8,3 +8,6 @@ coverage
 .tmp-screenshots
 .claude
 docs
+.firebaserc
+firebase.json
+.firebase
