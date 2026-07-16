@@ -3,6 +3,8 @@ import { AnyField, type AnyForm, type PathSegments } from '../formisch';
 import { FieldShell } from './FieldShell';
 import {
   chipButtonClass,
+  chipDotIdleClass,
+  chipDotSelectedClass,
   chipIdleClass,
   chipSelectedClass,
   inputClass,
@@ -39,12 +41,20 @@ export function EnumField({ form, meta, path }: Props) {
                   <button
                     key={o.value}
                     type="button"
-                    aria-pressed={value === o.value}
+                    role="radio"
+                    aria-checked={value === o.value}
                     onClick={() => field.onChange(o.value)}
                     className={`${chipButtonClass} ${
                       value === o.value ? chipSelectedClass : chipIdleClass
                     }`}
                   >
+                    <span
+                      className={`h-2.5 w-2.5 shrink-0 rounded-full ${
+                        value === o.value
+                          ? chipDotSelectedClass
+                          : chipDotIdleClass
+                      }`}
+                    />
                     {o.label}
                   </button>
                 ))}

@@ -4,14 +4,19 @@ export const inputClass
     + 'dark:border-stone-700 dark:bg-stone-800';
 
 export const chipButtonClass
-  = 'rounded-md border px-3 py-1 text-sm transition-colors';
+  = 'flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm transition-colors';
 
 export const chipSelectedClass
-  = 'border-brand-600 bg-brand-600 text-white';
+  = 'border-brand-600 bg-brand-50 text-brand-700 '
+    + 'dark:border-brand-500 dark:bg-brand-900/40 dark:text-brand-300';
 
 export const chipIdleClass
   = 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50 '
     + 'dark:border-stone-700 dark:bg-stone-800 dark:text-stone-300 dark:hover:bg-stone-700';
+
+export const chipDotSelectedClass = 'bg-brand-600 dark:bg-brand-400';
+
+export const chipDotIdleClass = 'border border-stone-400 dark:border-stone-500';
 
 export const addButtonClass
   = 'rounded-md border border-dashed border-stone-300 px-3 py-1.5 text-sm '
