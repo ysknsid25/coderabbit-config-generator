@@ -16,6 +16,8 @@
         "test": "vitest run",
         "pretest:coverage": "npm run generate:examples",
         "test:coverage": "vitest run --coverage",
+        "pretest:e2e": "npm run generate:examples",
+        "test:e2e": "playwright test",
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
         "deploy": "npm run build && firebase deploy --only hosting"
@@ -29,6 +31,7 @@
     },
     "devDependencies": {
         "@eslint/js": "^9.39.2",
+        "@playwright/test": "^1.61.1",
         "@stylistic/eslint-plugin": "^5.6.1",
         "@tailwindcss/vite": "^4.3.2",
         "@testing-library/jest-dom": "^6.9.1",
