@@ -9,14 +9,14 @@ describe('EnumField (radio)', () => {
     default: 'chill',
   };
 
-  it('marks the default option as pressed', () => {
+  it('marks the default option as checked', () => {
     renderField(node, 'profile');
-    expect(screen.getByRole('button', { name: 'chill' })).toHaveAttribute(
-      'aria-pressed',
+    expect(screen.getByRole('radio', { name: 'chill' })).toHaveAttribute(
+      'aria-checked',
       'true',
     );
-    expect(screen.getByRole('button', { name: 'quiet' })).toHaveAttribute(
-      'aria-pressed',
+    expect(screen.getByRole('radio', { name: 'quiet' })).toHaveAttribute(
+      'aria-checked',
       'false',
     );
   });
@@ -24,13 +24,13 @@ describe('EnumField (radio)', () => {
   it('changes selection on click', async () => {
     const user = userEvent.setup();
     renderField(node, 'profile');
-    await user.click(screen.getByRole('button', { name: 'assertive' }));
-    expect(screen.getByRole('button', { name: 'assertive' })).toHaveAttribute(
-      'aria-pressed',
+    await user.click(screen.getByRole('radio', { name: 'assertive' }));
+    expect(screen.getByRole('radio', { name: 'assertive' })).toHaveAttribute(
+      'aria-checked',
       'true',
     );
-    expect(screen.getByRole('button', { name: 'chill' })).toHaveAttribute(
-      'aria-pressed',
+    expect(screen.getByRole('radio', { name: 'chill' })).toHaveAttribute(
+      'aria-checked',
       'false',
     );
   });
