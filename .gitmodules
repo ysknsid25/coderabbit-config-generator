@@ -1,0 +1,3 @@
+[submodule "vendor/awesome-coderabbit"]
+	path = vendor/awesome-coderabbit
+	url = https://github.com/coderabbitai/awesome-coderabbit.git

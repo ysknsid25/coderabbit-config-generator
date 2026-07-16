@@ -16,6 +16,9 @@ export default defineConfig({
       exclude: [
         'dist/**',
         'docs/**',
+        'scripts/**',
+        'vendor/**',
+        'src/examples/generated/**',
         '**/*.config.{ts,mjs}',
         'src/main.tsx',
         'src/vite-env.d.ts',

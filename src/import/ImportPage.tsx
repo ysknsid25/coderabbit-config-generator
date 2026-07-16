@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { exampleCategories } from '../examples/generated/examples.generated';
+import { ExamplePicker } from './ExamplePicker';
+import { ExampleSourceToggle, type ImportMode } from './ExampleSourceToggle';
 import { ImportErrorList } from './ImportErrorList';
 import { parseImportedConfig } from './parseImportedConfig';
 
@@ -8,8 +11,15 @@ interface Props {
 }
 
 export function ImportPage({ onImport, onCancel }: Props) {
+  const [mode, setMode] = useState<ImportMode>('paste');
   const [text, setText] = useState('');
   const [errors, setErrors] = useState<string[]>([]);
+
+  const handleModeChange = (nextMode: ImportMode) => {
+    setMode(nextMode);
+    setText('');
+    setErrors([]);
+  };
 
   const handleImport = () => {
     const result = parseImportedConfig(text);
@@ -36,6 +46,12 @@ export function ImportPage({ onImport, onCancel }: Props) {
             Cancel
           </button>
         </div>
+
+        <ExampleSourceToggle mode={mode} onChange={handleModeChange} />
+
+        {mode === 'example' && (
+          <ExamplePicker categories={exampleCategories} onSelect={setText} />
+        )}
 
         <ImportErrorList errors={errors} />
 

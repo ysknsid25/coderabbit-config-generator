@@ -25,12 +25,18 @@ Every field, label, validation rule, and default value is **derived at runtime**
 
 ## Getting Started
 
-Requires **Node.js 22.x**.
+Requires **Node.js 22.x**. This repo vendors [`awesome-coderabbit`](https://github.com/coderabbitai/awesome-coderabbit) as a git submodule to power the "official examples" picker on the Import page, so clone with `--recurse-submodules`.
 
 ```bash
+git clone --recurse-submodules <repo-url>
+cd coderabbit-config-generator
 npm ci        # install dependencies
 npm run dev   # start the dev server (Vite)
 ```
+
+Already cloned without submodules? Run `git submodule update --init --recursive` before `npm ci`.
+
+`npm run dev` and `npm run build` automatically regenerate `src/examples/generated/` from the submodule before starting, so the example list always reflects the checked-out submodule commit. See [CONTRIBUTING.md](CONTRIBUTING.md) for more on the development workflow.
 
 Open the URL Vite prints (default `http://localhost:5173`).
 
@@ -46,6 +52,7 @@ Open the URL Vite prints (default `http://localhost:5173`).
 | `npm run test:coverage` | Run tests with coverage |
 | `npm run lint` | ESLint |
 | `npm run lint:fix` | ESLint with auto-fix |
+| `npm run generate:examples` | Regenerate `src/examples/generated/` from the `awesome-coderabbit` submodule |
 
 ## Architecture
 
