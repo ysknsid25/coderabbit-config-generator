@@ -10,7 +10,8 @@ import { YamlPreview } from './ui/YamlPreview';
 
 const REPO_URL = 'https://github.com/ysknsid25/coderabbit-config-generator';
 const SPONSOR_URL = 'https://github.com/sponsors/ysknsid25';
-const PRIVACY_URL = 'https://github.com/ysknsid25/coderabbit-config-generator/blob/master/PRIVACY.md';
+const PRIVACY_URL
+  = 'https://github.com/ysknsid25/coderabbit-config-generator/blob/master/PRIVACY.md';
 
 export function App() {
   const form = useConfigForm() as AnyForm;
@@ -103,6 +104,9 @@ export function App() {
           . Not affiliated with CodeRabbit.
         </div>
         <div className="mt-2">
+          We don't collect input data and store it only in your
+          browser. See our
+          {' '}
           <a
             href={PRIVACY_URL}
             target="_blank"
