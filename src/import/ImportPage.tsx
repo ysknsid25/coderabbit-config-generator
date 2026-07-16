@@ -63,13 +63,18 @@ export function ImportPage({ onImport, onCancel }: Props) {
           className="w-full rounded-md border border-stone-300 bg-white p-3 font-mono text-xs text-stone-800 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-200"
         />
 
-        <button
-          type="button"
-          onClick={handleImport}
-          className="rounded-md bg-brand-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-700"
-        >
-          Import
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={handleImport}
+            className="rounded-md bg-brand-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-700"
+          >
+            Import
+          </button>
+          <span className="text-xs text-stone-500 dark:text-stone-400">
+            Values matching schema defaults are omitted from the preview.
+          </span>
+        </div>
       </div>
     </div>
   );

@@ -71,6 +71,14 @@ describe('ImportPage', () => {
     expect(onImport).toHaveBeenCalledTimes(1);
   });
 
+  it('shows a note that default-valued fields are omitted from the preview', () => {
+    render(<ImportPage onImport={() => {}} onCancel={() => {}} />);
+
+    expect(
+      screen.getByText('Values matching schema defaults are omitted from the preview.'),
+    ).toBeInTheDocument();
+  });
+
   it('hides the example picker by default', () => {
     render(<ImportPage onImport={() => {}} onCancel={() => {}} />);
 
