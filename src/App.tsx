@@ -1,3 +1,5 @@
+import { setInput } from '@formisch/react';
+import { useLayoutEffect } from 'react';
 import { Accordion } from './form/fields/Accordion';
 import { FieldRenderer } from './form/FieldRenderer';
 import type { AnyForm } from './form/formisch';
@@ -13,11 +15,29 @@ const SPONSOR_URL = 'https://github.com/sponsors/ysknsid25';
 const PRIVACY_URL
   = 'https://github.com/ysknsid25/coderabbit-config-generator/blob/master/PRIVACY.md';
 
-export function App() {
+interface AppProps {
+  initialInput?: Record<string, unknown>;
+  onImportClick: () => void;
+}
+
+export function App({ initialInput, onImportClick }: AppProps) {
   const form = useConfigForm() as AnyForm;
   const signal = useChangeSignal();
   const scalars = rootMeta.filter(m => m.kind !== 'group');
   const groups = rootMeta.filter(m => m.kind === 'group');
+
+  // Applied via setInput (not useForm's initialInput) so Formisch's dirty
+  // baseline stays the schema defaults — otherwise getDirtyInput would treat
+  // the imported values as the new baseline and the default-diff YAML
+  // preview would omit them. signal.emit() is required alongside it because
+  // YamlPreview only recomputes on the onInput/onClick bubbling that `signal`
+  // listens for, which a programmatic setInput never triggers.
+  useLayoutEffect(() => {
+    if (initialInput) {
+      setInput(form, { input: initialInput });
+      signal.emit();
+    }
+  }, [form, initialInput, signal]);
 
   return (
     <div className="min-h-screen bg-stone-50 text-stone-800 dark:bg-stone-950 dark:text-stone-200">
@@ -57,6 +77,16 @@ export function App() {
           onInput={signal.emit}
           onClick={signal.emit}
         >
+          <div className="flex justify-end">
+            <button
+              type="button"
+              onClick={onImportClick}
+              className="rounded-md bg-brand-600 px-2.5 py-1 text-xs font-medium text-white hover:bg-brand-700"
+            >
+              Import Configure
+            </button>
+          </div>
+
           <Accordion title="General" defaultOpen>
             <div className="divide-y divide-stone-100 dark:divide-stone-800">
               {scalars.map(meta => (

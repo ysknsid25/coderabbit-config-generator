@@ -7,6 +7,8 @@ const root = rawSchema as JSONSchema;
 
 export const configSchema = buildRootSchema(root);
 
+export const strictConfigSchema = buildRootSchema(root, true);
+
 export const rootMeta: FieldMeta[] = buildRootMeta(root);
 
 export const rootMetaByKey: Record<string, FieldMeta> = Object.fromEntries(

@@ -1,10 +1,11 @@
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import userEvent from '@testing-library/user-event';
+import { describe, expect, it, vi } from 'vitest';
 import { App } from './App';
 
 describe('App', () => {
   it('renders the header and top-level sections from the schema', () => {
-    render(<App />);
+    render(<App onImportClick={() => {}} />);
     expect(
       screen.getByText('CodeRabbit Config Generator'),
     ).toBeInTheDocument();
@@ -14,7 +15,7 @@ describe('App', () => {
   });
 
   it('links to the repository and sponsor pages', () => {
-    render(<App />);
+    render(<App onImportClick={() => {}} />);
     expect(
       screen.getByRole('link', { name: 'GitHub repository' }),
     ).toHaveAttribute(
@@ -27,7 +28,15 @@ describe('App', () => {
   });
 
   it('shows a copyright notice', () => {
-    render(<App />);
+    render(<App onImportClick={() => {}} />);
     expect(screen.getByText(/©\s*2026/)).toBeInTheDocument();
+  });
+
+  it('calls onImportClick when the Import Configure button is clicked', async () => {
+    const user = userEvent.setup();
+    const onImportClick = vi.fn();
+    render(<App onImportClick={onImportClick} />);
+    await user.click(screen.getByRole('button', { name: 'Import Configure' }));
+    expect(onImportClick).toHaveBeenCalledTimes(1);
   });
 });

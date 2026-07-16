@@ -94,3 +94,30 @@ describe('buildRootSchema', () => {
     expect(v.safeParse(schema, { language: 'xx-YY' }).success).toBe(false);
   });
 });
+
+describe('strict mode', () => {
+  it('rejects an unknown key when additionalProperties is false and strict is true', () => {
+    const node: JSONSchema = {
+      type: 'object',
+      properties: { name: { type: 'string' } },
+      additionalProperties: false,
+    };
+    expect(v.safeParse(toValibot(node), { name: 'a', extra: 1 }).success).toBe(true);
+    expect(v.safeParse(toValibot(node, true), { name: 'a', extra: 1 }).success).toBe(false);
+  });
+
+  it('still allows unknown keys in strict mode when additionalProperties is not false', () => {
+    const node: JSONSchema = {
+      type: 'object',
+      properties: { name: { type: 'string' } },
+    };
+    expect(v.safeParse(toValibot(node, true), { name: 'a', extra: 1 }).success).toBe(true);
+  });
+
+  it('rejects a bogus top-level key in the real schema', () => {
+    const lenient = buildRootSchema(rawSchema as JSONSchema);
+    const strict = buildRootSchema(rawSchema as JSONSchema, true);
+    expect(v.safeParse(lenient, { not_a_real_field: true }).success).toBe(true);
+    expect(v.safeParse(strict, { not_a_real_field: true }).success).toBe(false);
+  });
+});

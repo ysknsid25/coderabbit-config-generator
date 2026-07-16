@@ -11,9 +11,9 @@ function pipe(base: v.GenericSchema, actions: unknown[]): v.GenericSchema {
   );
 }
 
-export function toValibot(node: JSONSchema): v.GenericSchema {
+export function toValibot(node: JSONSchema, strict = false): v.GenericSchema {
   if (node.anyOf && node.anyOf.length > 0) {
-    const members = node.anyOf.map(toValibot);
+    const members = node.anyOf.map(child => toValibot(child, strict));
     return v.union(members) as v.GenericSchema;
   }
 
@@ -47,7 +47,7 @@ export function toValibot(node: JSONSchema): v.GenericSchema {
     }
 
     case 'array': {
-      const item = node.items ? toValibot(node.items) : v.unknown();
+      const item = node.items ? toValibot(node.items, strict) : v.unknown();
       const actions: unknown[] = [];
       if (typeof node.minItems === 'number')
         actions.push(v.minLength(node.minItems));
@@ -69,7 +69,10 @@ export function toValibot(node: JSONSchema): v.GenericSchema {
       }
       const entries: Record<string, v.GenericSchema> = {};
       for (const [key, child] of Object.entries(node.properties ?? {})) {
-        entries[key] = toEntry(child);
+        entries[key] = toEntry(child, strict);
+      }
+      if (strict && node.additionalProperties === false) {
+        return v.strictObject(entries as v.ObjectEntries);
       }
       return v.object(entries as v.ObjectEntries);
     }
@@ -78,8 +81,8 @@ export function toValibot(node: JSONSchema): v.GenericSchema {
 
 // Every property is optional so the generated config stays a partial.
 // A schema default seeds Formisch's initial value for that field.
-export function toEntry(node: JSONSchema): v.GenericSchema {
-  const inner = toValibot(node);
+export function toEntry(node: JSONSchema, strict = false): v.GenericSchema {
+  const inner = toValibot(node, strict);
   if (node.default !== undefined) {
     return v.optional(inner, node.default as never) as v.GenericSchema;
   }
@@ -88,12 +91,15 @@ export function toEntry(node: JSONSchema): v.GenericSchema {
 
 export function buildRootSchema(
   root: JSONSchema,
+  strict = false,
 ): v.GenericSchema<Record<string, unknown>> {
   const entries: Record<string, v.GenericSchema> = {};
   for (const [key, child] of Object.entries(root.properties ?? {})) {
-    entries[key] = toEntry(child);
+    entries[key] = toEntry(child, strict);
   }
-  return v.object(entries as v.ObjectEntries) as v.GenericSchema<
-    Record<string, unknown>
-  >;
+  const rootSchema
+    = strict && root.additionalProperties === false
+      ? v.strictObject(entries as v.ObjectEntries)
+      : v.object(entries as v.ObjectEntries);
+  return rootSchema as v.GenericSchema<Record<string, unknown>>;
 }
