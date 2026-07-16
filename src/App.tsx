@@ -10,6 +10,7 @@ import { YamlPreview } from './ui/YamlPreview';
 
 const REPO_URL = 'https://github.com/ysknsid25/coderabbit-config-generator';
 const SPONSOR_URL = 'https://github.com/sponsors/ysknsid25';
+const PRIVACY_URL = 'https://github.com/ysknsid25/coderabbit-config-generator/blob/master/PRIVACY.md';
 
 export function App() {
   const form = useConfigForm() as AnyForm;
@@ -88,17 +89,29 @@ export function App() {
       </div>
 
       <footer className="border-t border-stone-200 px-6 py-6 text-center text-xs text-stone-400 dark:border-stone-800 dark:text-stone-500">
-        © 2026
-        {' '}
-        <a
-          href="https://github.com/ysknsid25"
-          target="_blank"
-          rel="noreferrer"
-          className="hover:text-stone-600 dark:hover:text-stone-300"
-        >
-          ysknsid25
-        </a>
-        . Not affiliated with CodeRabbit.
+        <div>
+          © 2026
+          {' '}
+          <a
+            href="https://github.com/ysknsid25"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-stone-600 dark:hover:text-stone-300"
+          >
+            ysknsid25
+          </a>
+          . Not affiliated with CodeRabbit.
+        </div>
+        <div className="mt-2">
+          <a
+            href={PRIVACY_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300"
+          >
+            Privacy Policy
+          </a>
+        </div>
       </footer>
     </div>
   );
