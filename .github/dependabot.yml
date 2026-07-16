@@ -5,9 +5,10 @@ updates:
     schedule:
       interval: "weekly"
     groups:
-      minor-and-patch:
+      update-types:
         update-types:
           - "minor"
+          - "major"
           - "patch"
 
   - package-ecosystem: "github-actions"
