@@ -47,7 +47,14 @@ export function toValibot(node: JSONSchema, strict = false): v.GenericSchema {
     }
 
     case 'array': {
-      const item = node.items ? toValibot(node.items, strict) : v.unknown();
+      // Mirrors toFieldMeta's resolveItemNode: array items always render (and
+      // are initialized) as the object member, so the validation schema must
+      // match that shape instead of a mixed union — formisch throws when the
+      // same field store is reinitialized from "value" kind to "object" kind.
+      const itemsNode
+        = node.items?.anyOf?.find(m => m.type === 'object' || m.properties)
+          ?? node.items;
+      const item = itemsNode ? toValibot(itemsNode, strict) : v.unknown();
       const actions: unknown[] = [];
       if (typeof node.minItems === 'number')
         actions.push(v.minLength(node.minItems));
