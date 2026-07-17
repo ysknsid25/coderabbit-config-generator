@@ -53,6 +53,24 @@ describe('EnumField (select)', () => {
     expect(select.value).toBe('l0');
   });
 
+  it('appends the value only to labels that collide', () => {
+    renderField(
+      {
+        enum: ['de', 'de-DE', 'en', 'fr', 'es'],
+        enumNames: ['German', 'German', 'English', 'French', 'Spanish'],
+        default: 'de',
+      },
+      'language',
+    );
+    expect(
+      screen.getByRole('option', { name: 'German - de' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('option', { name: 'German - de-DE' }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: 'English' })).toBeInTheDocument();
+  });
+
   it('updates the value on selection', async () => {
     const user = userEvent.setup();
     renderField(

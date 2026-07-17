@@ -20,6 +20,16 @@ export function EnumField({ form, meta, path }: Props) {
   const options = meta.options ?? [];
   const id = path.join('.');
 
+  // Some enums reuse a label across several values (e.g. locale variants all
+  // labelled "German"), which looks like duplicate entries in a <select>.
+  // Only append the raw value for labels that actually collide.
+  const labelCounts = new Map<string, number>();
+  for (const o of options) {
+    labelCounts.set(o.label, (labelCounts.get(o.label) ?? 0) + 1);
+  }
+  const optionText = (o: { value: string; label: string }): string =>
+    (labelCounts.get(o.label) ?? 0) > 1 ? `${o.label} - ${o.value}` : o.label;
+
   return (
     <AnyField of={form} path={path}>
       {(field) => {
@@ -80,7 +90,7 @@ export function EnumField({ form, meta, path }: Props) {
               <option value="">—</option>
               {options.map(o => (
                 <option key={o.value} value={o.value}>
-                  {o.label}
+                  {optionText(o)}
                 </option>
               ))}
             </select>
